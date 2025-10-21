@@ -1,6 +1,6 @@
-<div>
-    @if (producResponse) {
-        @for (product of producResponse.products; track product.id) {
+<div style="display: flex; flex-wrap: wrap;">
+    @if (productResponse) {
+        @for (product of productResponse.products; track product.id) {
             <div>
                 <app-product-card [product]="product"></app-product-card>
             </div>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Quote } from '../../models/quoteListResponse';
 
 @Component({
   selector: 'app-quote-card',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './quote-card.scss'
 })
 export class QuoteCard {
-
+  @Input() quote!:Quote;
 }

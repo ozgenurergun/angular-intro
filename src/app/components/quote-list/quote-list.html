@@ -1,1 +1,9 @@
-<p>quote-list works!</p>
+<div style="background-color: blueviolet;">
+    @if (quoteResponse) {
+        @for (quote of quoteResponse.quotes; track quote.id) {
+            <div>
+                <app-quote-card [quote]="quote"></app-quote-card>
+            </div>
+        }
+    }
+</div>

@@ -13,7 +13,7 @@ import { ProductListResponse } from '../../models/productListResponse';
 
 //implement(oninit) zorunlu değil ama faydalı (yazım yanlışlarına karşı)
 export class ProductList implements OnInit{
-  producResponse!:ProductListResponse
+  productResponse!:ProductListResponse
 
   //Cons. parametreleri ekstra parametrelerle açılmak zorunda değil otomaitk this altına eklenir
   constructor(private httpClient:HttpClient) {}
@@ -27,7 +27,7 @@ export class ProductList implements OnInit{
     .get<ProductListResponse>("https://dummyjson.com/products")
     .subscribe({
       next:(response:ProductListResponse) => {
-        this.producResponse = response
+        this.productResponse = response
       },
       error:(err:any) => {
         console.log("Hata alındı:", err)

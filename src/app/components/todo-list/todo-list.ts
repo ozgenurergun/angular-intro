@@ -21,7 +21,7 @@ export class TodoList implements OnInit{
 
   fetchTodos(){
     this.httpClient
-    .get<TodoListResponse>("https://dummyjson.com/todos?limit=1")
+    .get<TodoListResponse>("https://dummyjson.com/todos")
     .subscribe({
       next:(response:TodoListResponse) => {
         this.todoResponse = response
