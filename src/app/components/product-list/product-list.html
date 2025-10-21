@@ -1,0 +1,24 @@
+<div>
+    @if (producResponse) {
+        @for (product of producResponse.products; track product.id) {
+            <div>
+                <app-product-card [product]="product"></app-product-card>
+            </div>
+        }
+    }
+</div>
+
+<!--track -> listeyi benzersiz özelliği üzerindne takip eder
+@for (product of products; track product.id) { 
+    <app-product-card [product] = "product"></app-product-card>
+}
+@empty {
+    <div>Ürün bulunamadı.</div>
+}-->
+
+
+
+<!--track kullanılmazsa: Angular, listedeki tüm öğeleri yenilenmiş kabul eder ve DOM'daki tüm ilgili HTML elementlerini yeniden oluşturur.
+
+track product.id kullanılırsa: Angular, eski listedeki id'leri yeni listedeki id'lerle karşılaştırır. Yalnızca ID'si değişen, silinen veya 
+eklenen öğeleri günceller. Aynı ID'ye sahip öğeleri ise yerinde bırakır, bu da performansı büyük ölçüde artırır.-->
