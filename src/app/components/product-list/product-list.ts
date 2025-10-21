@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductCard } from '../product-card/product-card';
-import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ProductListResponse } from '../../models/productListResponse';
 
 @Component({
   selector: 'app-product-list',
-  imports: [CommonModule, ProductCard],
+  imports: [ProductCard],
   templateUrl: './product-list.html',
   styleUrl: './product-list.scss'
 })

@@ -15,7 +15,7 @@ export class QuoteList {
   constructor(private httpClient:HttpClient){}
 
   ngOnInit() {
-
+    this.fetchQuotes();
   }
 
   fetchQuotes(){

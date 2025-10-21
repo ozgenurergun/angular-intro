@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { TodoCard } from '../todo-card/todo-card';
 import { HttpClient } from '@angular/common/http';
 import { TodoListResponse } from '../../models/todoListResponse';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-todo-list',
-  imports: [TodoCard, CommonModule],
+  imports: [TodoCard],
   templateUrl: './todo-list.html',
   styleUrl: './todo-list.scss'
 })
