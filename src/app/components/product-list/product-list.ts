@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ProductCard } from '../product-card/product-card';
 import { HttpClient } from '@angular/common/http';
 import { ProductListResponse } from '../../models/productListResponse';
@@ -7,15 +7,17 @@ import { ProductListResponse } from '../../models/productListResponse';
   selector: 'app-product-list',
   imports: [ProductCard],
   templateUrl: './product-list.html',
-  styleUrl: './product-list.scss'
+  styleUrl: './product-list.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
+//onpush:değişiklikleri zorla uygulatıyoruz
 
 //implement(oninit) zorunlu değil ama faydalı (yazım yanlışlarına karşı)
 export class ProductList implements OnInit{
   productResponse!:ProductListResponse
 
   //Cons. parametreleri ekstra parametrelerle açılmak zorunda değil otomaitk this altına eklenir
-  constructor(private httpClient:HttpClient) {}
+  constructor(private httpClient:HttpClient, private changeDetector:ChangeDetectorRef) {}
 
   ngOnInit() {
     this.fetchProducts();
@@ -26,7 +28,8 @@ export class ProductList implements OnInit{
     .get<ProductListResponse>("https://dummyjson.com/products")
     .subscribe({
       next:(response:ProductListResponse) => {
-        this.productResponse = response
+        this.productResponse = response;
+        this.changeDetector.detectChanges()
       },
       error:(err:any) => {
         console.log("Hata alındı:", err)

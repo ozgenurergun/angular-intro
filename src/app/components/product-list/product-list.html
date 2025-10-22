@@ -5,6 +5,12 @@
                 <app-product-card [product]="product"></app-product-card>
             </div>
         }
+        @empty {
+            <div>Herhangi bir verş bulunamadı.</div>
+        }
+    }
+    @else {
+        <div>Yükleniyor..</div>
     }
 </div>
 
@@ -16,7 +22,7 @@
     <div>Ürün bulunamadı.</div>
 }-->
 
-
+<!--if varsa else olması -> best practise-->
 
 <!--track kullanılmazsa: Angular, listedeki tüm öğeleri yenilenmiş kabul eder ve DOM'daki tüm ilgili HTML elementlerini yeniden oluşturur.
 
