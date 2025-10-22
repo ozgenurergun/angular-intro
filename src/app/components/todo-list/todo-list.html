@@ -1,9 +1,20 @@
-<div style="background-color: lawngreen;">
-    @if (todoResponse()) {
-        @for (todo of todoResponse()!.todos; track todo.id) {
-            <div>
-                <app-todo-card [todo]="todo"></app-todo-card>
+<div class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">My Todo List</h1>
+            <p class="text-gray-600">Keep track of your tasks and stay organized</p>
+        </div>
+
+        @if (todoResponse()) {
+            <!-- Sadece Todo Kartları -->
+            <div class="space-y-4">
+                @for (todo of todoResponse()!.todos; track todo.id) {
+                    <div class="transform hover:scale-[1.01] transition-transform duration-200">
+                        <app-todo-card [todo]="todo"></app-todo-card>
+                    </div>
+                }
             </div>
         }
-    }
+    </div>
 </div>

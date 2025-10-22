@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/cor
 import { TodoCard } from '../todo-card/todo-card';
 import { HttpClient } from '@angular/common/http';
 import { TodoListResponse } from '../../models/todoListResponse';
+import { TodoService } from '../../services/todo-service';
 
 @Component({
   selector: 'app-todo-list',
@@ -13,25 +14,15 @@ import { TodoListResponse } from '../../models/todoListResponse';
 export class TodoList implements OnInit{
   todoResponse = signal<TodoListResponse | undefined>(undefined)
 
-  constructor(private httpClient:HttpClient){}
+  constructor(private todoService:TodoService){}
 
   ngOnInit() {
     this.fetchTodos();
   }
 
   fetchTodos(){
-    this.httpClient
-    .get<TodoListResponse>("https://dummyjson.com/todos")
-    .subscribe({
-      next:(response:TodoListResponse) => {
-        this.todoResponse.set(response)
-      },
-      error:(err:any) => {
-        console.log("Hata alındı:", err)
-      },
-      complete: () => {
-        console.log("Hata ya da cevap başarılı geldi. İstek bitti.")
-      }
+    this.todoService.getTodos().subscribe({
+      next:(response) => this.todoResponse.set(response)
     })
   }
 }

@@ -1,42 +1,32 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
 import { ProductCard } from '../product-card/product-card';
-import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 import { ProductListResponse } from '../../models/productListResponse';
+import { ProductService } from '../../services/product-service';
 
 @Component({
   selector: 'app-product-list',
-  imports: [ProductCard],
+  imports: [CommonModule,ProductCard],
   templateUrl: './product-list.html',
   styleUrl: './product-list.scss',
   changeDetection: ChangeDetectionStrategy.Default
 })
-//onpush:değişiklikleri zorla uygulatıyoruz
+//  implements OnInit => opsiyonel ama faydalı (yazım yanlışlarına karşı.)
+export class ProductList implements OnInit {
+  // Ekranda takip edilmesini istiyorum.
+  productResponse = signal<ProductListResponse | undefined>(undefined);
 
-//implement(oninit) zorunlu değil ama faydalı (yazım yanlışlarına karşı)
-export class ProductList implements OnInit{
-  productResponse = signal<ProductListResponse | undefined>(undefined)
-
-  //Cons. parametreleri ekstra parametrelerle açılmak zorunda değil otomaitk this altına eklenir
-  constructor(private httpClient:HttpClient) {}
+  // Ctor parametreleri ekstra parametrelerle açılmak zorunda değil otomatik this. altına eklenir.
+  constructor(private productService:ProductService) {}
 
   ngOnInit() {
     this.fetchProducts();
   }
 
   fetchProducts() {
-    this.httpClient
-    .get<ProductListResponse>("https://dummyjson.com/products")
-    .subscribe({
-      next:(response:ProductListResponse) => {
-        this.productResponse.set(response);
-      },
-      error:(err:any) => {
-        console.log("Hata alındı:", err)
-      },
-      complete: () => {
-        console.log("Hata ya da cevap başarılı geldi. İstek bitti.")
-      }
-    }) //RxJS yapısının angulardaki kullanımı !!!
+   this.productService.getProducts().subscribe({
+    next:(response) => this.productResponse.set(response)
+   })
   }
 }
 

@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { QuoteCard } from '../quote-card/quote-card';
 import { QuoteListResponse } from '../../models/quoteListResponse';
 import { HttpClient } from '@angular/common/http';
+import { QuoteService } from '../../services/quote-service';
 
 @Component({
   selector: 'app-quote-list',
@@ -13,25 +14,15 @@ import { HttpClient } from '@angular/common/http';
 export class QuoteList {
   quoteResponse = signal<QuoteListResponse | undefined>(undefined)
 
-  constructor(private httpClient:HttpClient){}
+  constructor(private quoteService:QuoteService){}
 
   ngOnInit() {
     this.fetchQuotes();
   }
 
   fetchQuotes(){
-    this.httpClient
-    .get<QuoteListResponse>("https://dummyjson.com/quotes")
-    .subscribe({
-      next:(response:QuoteListResponse) => {
-        this.quoteResponse.set(response)
-      },
-      error:(err:any) => {
-        console.log("Hata alındı:", err)
-      },
-      complete: () => {
-        console.log("Hata ya da cevap başarılı geldi. İstek bitti.")
-      }
+    this.quoteService.getQuotes().subscribe({
+      next:(response) => this.quoteResponse.set(response)
     })
   }
 }
