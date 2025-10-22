@@ -10,7 +10,7 @@ import { QuoteList } from "./components/quote-list/quote-list";
   //imports: [RouterOutlet], 
   templateUrl: './app.html', //html şablon dosya yolu
   styleUrl: './app.scss', //stil dosyasının yolu
-  imports: [FormsModule, ProductList, TodoList, QuoteList], //bu componentin kullandığı diğer componentler, direktifler veya pipe'lar
+  imports: [FormsModule, ProductList, TodoList, QuoteList, RouterOutlet], //bu componentin kullandığı diğer componentler, direktifler veya pipe'lar
 })
 export class App {
 
