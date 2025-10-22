@@ -1,6 +1,6 @@
 <div style="background-color: lawngreen;">
-    @if (todoResponse) {
-        @for (todo of todoResponse.todos; track todo.id) {
+    @if (todoResponse()) {
+        @for (todo of todoResponse()!.todos; track todo.id) {
             <div>
                 <app-todo-card [todo]="todo"></app-todo-card>
             </div>

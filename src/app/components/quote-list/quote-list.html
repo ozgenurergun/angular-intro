@@ -1,6 +1,6 @@
 <div style="background-color: rgb(131, 94, 168);">
-    @if (quoteResponse) {
-        @for (quote of quoteResponse.quotes; track quote.id) {
+    @if (quoteResponse()) {
+        @for (quote of quoteResponse()!.quotes; track quote.id) {
             <div>
                 <app-quote-card [quote]="quote"></app-quote-card>
             </div>

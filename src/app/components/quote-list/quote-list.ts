@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { QuoteCard } from '../quote-card/quote-card';
 import { QuoteListResponse } from '../../models/quoteListResponse';
 import { HttpClient } from '@angular/common/http';
@@ -7,10 +7,11 @@ import { HttpClient } from '@angular/common/http';
   selector: 'app-quote-list',
   imports: [QuoteCard],
   templateUrl: './quote-list.html',
-  styleUrl: './quote-list.scss'
+  styleUrl: './quote-list.scss',
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class QuoteList {
-  quoteResponse!:QuoteListResponse
+  quoteResponse = signal<QuoteListResponse | undefined>(undefined)
 
   constructor(private httpClient:HttpClient){}
 
@@ -23,7 +24,7 @@ export class QuoteList {
     .get<QuoteListResponse>("https://dummyjson.com/quotes")
     .subscribe({
       next:(response:QuoteListResponse) => {
-        this.quoteResponse = response
+        this.quoteResponse.set(response)
       },
       error:(err:any) => {
         console.log("Hata alındı:", err)

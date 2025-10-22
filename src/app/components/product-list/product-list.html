@@ -1,6 +1,6 @@
 <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-    @if (productResponse) {
-        @for (product of productResponse.products; track product.id) {
+    @if (productResponse()) {
+        @for (product of productResponse()!.products; track product.id) {
             <div style="flex: 0 0 calc(33.33% - 20px); box-sizing: border-box; display: flex;">
                 <app-product-card [product]="product"></app-product-card>
             </div>

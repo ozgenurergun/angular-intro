@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
 import { ProductCard } from '../product-card/product-card';
 import { HttpClient } from '@angular/common/http';
 import { ProductListResponse } from '../../models/productListResponse';
@@ -8,16 +8,16 @@ import { ProductListResponse } from '../../models/productListResponse';
   imports: [ProductCard],
   templateUrl: './product-list.html',
   styleUrl: './product-list.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 //onpush:değişiklikleri zorla uygulatıyoruz
 
 //implement(oninit) zorunlu değil ama faydalı (yazım yanlışlarına karşı)
 export class ProductList implements OnInit{
-  productResponse!:ProductListResponse
+  productResponse = signal<ProductListResponse | undefined>(undefined)
 
   //Cons. parametreleri ekstra parametrelerle açılmak zorunda değil otomaitk this altına eklenir
-  constructor(private httpClient:HttpClient, private changeDetector:ChangeDetectorRef) {}
+  constructor(private httpClient:HttpClient) {}
 
   ngOnInit() {
     this.fetchProducts();
@@ -28,8 +28,7 @@ export class ProductList implements OnInit{
     .get<ProductListResponse>("https://dummyjson.com/products")
     .subscribe({
       next:(response:ProductListResponse) => {
-        this.productResponse = response;
-        this.changeDetector.detectChanges()
+        this.productResponse.set(response);
       },
       error:(err:any) => {
         console.log("Hata alındı:", err)
